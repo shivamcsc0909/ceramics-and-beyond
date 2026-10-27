@@ -1,0 +1,6 @@
+User-Agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+Sitemap: https://paleturquoise-jellyfish-154529.hostingersite.com/sitemap.xml

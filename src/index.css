@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-ivory: #F5F2EC;
+  --color-porcelain: #FAF9F6;
+  --color-charcoal: #292824;
+  --color-studio-dark: #1A1916;
+  --color-studio-card: #22211D;
+  --color-stone-beige: #C9BDAA;
+  --color-terracotta: #A76F55;
+  --color-olive-grey: #77786B;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-ivory);
+  color: var(--color-charcoal);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: var(--color-ivory);
+  color: var(--color-charcoal);
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom minimal scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5F2EC;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C9BDAA;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #77786B;
+}
+
+/* Text selection */
+::selection {
+  background-color: #292824;
+  color: #FAF9F6;
+}
+
+/* Fluid responsive clamp classes - tuned for 320px mobile through 4K displays */
+.text-display-hero {
+  font-size: clamp(2rem, 5.5vw + 0.25rem, 5.25rem);
+  line-height: 1.08;
+}
+
+.text-display-section {
+  font-size: clamp(1.75rem, 3.5vw + 0.2rem, 3.5rem);
+  line-height: 1.15;
+}
+
+.text-editorial-sub {
+  font-size: clamp(1rem, 1.6vw + 0.2rem, 1.5rem);
+  line-height: 1.4;
+}
+
+/* Subtle image zoom on hover */
+.group-hover-zoom {
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.group:hover .group-hover-zoom {
+  transform: scale(1.04);
+}
+
+/* Subtle dark card treatment */
+.studio-glass {
+  background: rgba(34, 33, 29, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(201, 189, 170, 0.15);
+}
+
+.header-glass {
+  background: rgba(41, 40, 36, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(201, 189, 170, 0.2);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scrollDrop {
+  0% {
+    transform: translateY(-100%);
+  }
+  50% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

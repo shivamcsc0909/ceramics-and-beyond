@@ -1,0 +1,2 @@
+# Prohibit all direct HTTP access to backups and local database files
+Require all denied

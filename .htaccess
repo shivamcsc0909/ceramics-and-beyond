@@ -1,0 +1,42 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # 1. Block access to hidden files and sensitive directories
+    RewriteRule ^\.env - [F,L]
+    RewriteRule ^storage/ - [F,L]
+    RewriteRule ^api/config/ - [F,L]
+    RewriteRule ^api/database/ - [F,L]
+    RewriteRule ^package\.json - [F,L]
+    RewriteRule ^tsconfig\.json - [F,L]
+
+    # 2. Route sitemap.xml to dynamic PHP generator
+    RewriteRule ^sitemap\.xml$ api/sitemap.php [L]
+
+    # 3. Route API endpoints to PHP front controller
+    RewriteRule ^api/(.*)$ api/index.php [QSA,L]
+
+    # 4. If request is a real file or directory (like /uploads/* or /assets/*), serve directly
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # 5. Route all other requests to index.html for React SPA
+    RewriteRule ^ index.html [L]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Enforce noindex for Admin and Developer Portal paths
+    <If "%{REQUEST_URI} =~ m#^/(admin|developer-portal)#">
+        Header set X-Robots-Tag "noindex, nofollow, noarchive"
+        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    </If>
+</IfModule>
+
+# Disable Directory Browsing
+Options -Indexes
